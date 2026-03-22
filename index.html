@@ -6,52 +6,82 @@
 <title>N5 Computing Science — Code Trainer</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#FAF9F6;font-family:Georgia,serif;min-height:100vh;padding:32px 16px;color:#1C1C1A}
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:24px}
+body{background:#2C2C2C;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;padding:32px 16px;color:#EDE9DF;line-height:1.7}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:24px}
 @media(max-width:640px){.grid{grid-template-columns:1fr}}
-a.card{background:white;border:1px solid #E8E4DC;border-radius:12px;padding:22px;text-decoration:none;color:inherit;display:block;transition:border-color .15s,box-shadow .15s}
-a.card:hover{border-color:#D97706;box-shadow:0 2px 10px rgba(217,119,6,.1)}
-.num{font-size:11px;font-family:system-ui,sans-serif;color:#9C9990;margin-bottom:8px}
-.ct{font-size:16px;font-weight:600;margin-bottom:10px;line-height:1.3}
-.row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.pill{font-size:11px;padding:3px 8px;border-radius:20px;font-family:system-ui,sans-serif;white-space:nowrap}
-.arr{font-size:13px;color:#9C9990}
-.qs{font-size:11px;font-family:system-ui,sans-serif;color:#9C9990;margin-top:12px;border-top:1px solid #E8E4DC;padding-top:10px}
+a.card{background:#363636;border:1px solid #4A4A4A;border-radius:12px;padding:24px;text-decoration:none;color:inherit;display:block;transition:border-color .15s,background .15s}
+a.card:hover{border-color:#D97706;background:#3E3E3E}
+.num{font-size:11px;font-family:'Segoe UI',system-ui,sans-serif;color:#888;margin-bottom:10px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+.ct{font-size:17px;font-weight:700;margin-bottom:14px;line-height:1.3;color:#EDE9DF;letter-spacing:.01em}
+.row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.pill{font-size:11px;padding:4px 10px;border-radius:20px;font-family:'Segoe UI',system-ui,sans-serif;white-space:nowrap;font-weight:600;letter-spacing:.04em}
+.arr{font-size:14px;color:#888}
+.qs{font-size:12px;font-family:'Segoe UI',system-ui,sans-serif;color:#888;margin-top:14px;border-top:1px solid #4A4A4A;padding-top:12px;letter-spacing:.02em}
+.info{background:#363636;border:1px solid #4A4A4A;border-radius:12px;padding:18px 22px;margin:20px 0;font-size:14px;color:#C8C4BA;line-height:1.75}
+.info strong{color:#EDE9DF}
 </style>
 </head>
 <body>
 <div style="max-width:760px;margin:0 auto">
   <div style="margin-bottom:8px">
-    <h1 style="font-size:23px;font-weight:600">N5 Computing Science</h1>
-    <p style="font-size:13px;color:#9C9990;font-family:system-ui,sans-serif;margin-top:3px">Code Translation Trainer — 6 directions, 20 questions, no login needed</p>
+    <h1 style="font-size:24px;font-weight:700;color:#EDE9DF;letter-spacing:.01em">N5 Computing Science</h1>
+    <p style="font-size:13px;color:#888;margin-top:4px;letter-spacing:.02em">Code Translation Trainer — 6 directions, 20 questions per topic, no login needed</p>
   </div>
-  <div style="background:white;border:1px solid #E8E4DC;border-radius:12px;padding:16px 20px;margin:18px 0;font-size:13px;color:#3D3D3A;font-family:system-ui,sans-serif;line-height:1.65">
-    Each topic has two translation directions. Q1–6 in one direction, Q7–12 in the other. All examples use <strong>counter</strong> as the loop variable.
+
+  <div class="info">
+    Each topic has two translation directions. <strong>Q1–10</strong> in one direction, <strong>Q11–20</strong> in the other.
+    All examples use <strong>counter</strong> as the loop variable.
+    Use <strong>+</strong> for joining in pseudocode and Python. Use <strong>&amp;</strong> in SQARL.
   </div>
+
   <div class="grid">
     <a class="card" href="page1.html">
       <div class="num">Topic 1</div>
       <div class="ct">Pseudocode ↔ Python</div>
-      <div class="row"><span class="pill" style="background:#DBEAFE;color:#1E40AF">Pseudocode</span><span class="arr">→</span><span class="pill" style="background:#D1FAE5;color:#065F46">Python</span></div>
-      <div class="row"><span class="pill" style="background:#D1FAE5;color:#065F46">Python</span><span class="arr">→</span><span class="pill" style="background:#DBEAFE;color:#1E40AF">Pseudocode</span></div>
-      <div class="qs">Q1–6 &bull; Q7–12</div>
+      <div class="row">
+        <span class="pill" style="background:#1A3A4A;color:#7EC8E3">Pseudocode</span>
+        <span class="arr">→</span>
+        <span class="pill" style="background:#1A3A2A;color:#7EC87E">Python</span>
+      </div>
+      <div class="row">
+        <span class="pill" style="background:#1A3A2A;color:#7EC87E">Python</span>
+        <span class="arr">→</span>
+        <span class="pill" style="background:#1A3A4A;color:#7EC8E3">Pseudocode</span>
+      </div>
+      <div class="qs">Q1–10 &bull; Q11–20</div>
     </a>
     <a class="card" href="page2.html">
       <div class="num">Topic 2</div>
       <div class="ct">Python ↔ SQARL</div>
-      <div class="row"><span class="pill" style="background:#D1FAE5;color:#065F46">Python</span><span class="arr">→</span><span class="pill" style="background:#1C1C1A;color:#F5C542">SQARL</span></div>
-      <div class="row"><span class="pill" style="background:#1C1C1A;color:#F5C542">SQARL</span><span class="arr">→</span><span class="pill" style="background:#D1FAE5;color:#065F46">Python</span></div>
-      <div class="qs">Q1–6 &bull; Q7–12</div>
+      <div class="row">
+        <span class="pill" style="background:#1A3A2A;color:#7EC87E">Python</span>
+        <span class="arr">→</span>
+        <span class="pill" style="background:#3A2A1A;color:#E3A87E">SQARL</span>
+      </div>
+      <div class="row">
+        <span class="pill" style="background:#3A2A1A;color:#E3A87E">SQARL</span>
+        <span class="arr">→</span>
+        <span class="pill" style="background:#1A3A2A;color:#7EC87E">Python</span>
+      </div>
+      <div class="qs">Q1–10 &bull; Q11–20</div>
     </a>
     <a class="card" href="page3.html">
       <div class="num">Topic 3</div>
       <div class="ct">SQARL ↔ Pseudocode</div>
-      <div class="row"><span class="pill" style="background:#1C1C1A;color:#F5C542">SQARL</span><span class="arr">→</span><span class="pill" style="background:#DBEAFE;color:#1E40AF">Pseudocode</span></div>
-      <div class="row"><span class="pill" style="background:#DBEAFE;color:#1E40AF">Pseudocode</span><span class="arr">→</span><span class="pill" style="background:#1C1C1A;color:#F5C542">SQARL</span></div>
-      <div class="qs">Q1–6 &bull; Q7–12</div>
+      <div class="row">
+        <span class="pill" style="background:#3A2A1A;color:#E3A87E">SQARL</span>
+        <span class="arr">→</span>
+        <span class="pill" style="background:#1A3A4A;color:#7EC8E3">Pseudocode</span>
+      </div>
+      <div class="row">
+        <span class="pill" style="background:#1A3A4A;color:#7EC8E3">Pseudocode</span>
+        <span class="arr">→</span>
+        <span class="pill" style="background:#3A2A1A;color:#E3A87E">SQARL</span>
+      </div>
+      <div class="qs">Q1–10 &bull; Q11–20</div>
     </a>
   </div>
-  <p style="font-size:11px;color:#9C9990;font-family:system-ui,sans-serif;text-align:center;margin-top:20px">No login &bull; No cost &bull; Works offline once loaded</p>
+  <p style="font-size:12px;color:#666;text-align:center;margin-top:24px;letter-spacing:.02em">No login &bull; No cost &bull; Works offline once loaded</p>
 </div>
 </body>
 </html>

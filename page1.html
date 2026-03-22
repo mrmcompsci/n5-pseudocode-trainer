@@ -5,34 +5,35 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>N5 — Pseudocode ↔ Python</title>
 <style>*{box-sizing:border-box;margin:0;padding:0}
-body{background:#FAF9F6;font-family:Georgia,serif;padding:20px 16px;color:#1C1C1A}
-textarea{font-family:'Courier New',monospace;width:100%;min-height:150px;padding:10px 12px;font-size:13px;line-height:1.7;background:#FAFAF7;border:1.5px solid #D5D2CA;border-radius:8px;resize:vertical;color:#1C1C1A;outline:none;display:block}
-textarea:focus{border-color:#D97706;box-shadow:0 0 0 2px rgba(217,119,6,.12)}
-pre{background:#1E1B18;color:#F5F0E8;border-radius:8px;padding:12px 14px;font-size:12px;line-height:1.7;white-space:pre-wrap;font-family:'Courier New',monospace;margin:0;overflow-x:auto}
-button{cursor:pointer;font-family:system-ui,sans-serif}
-.card{background:white;border-radius:12px;padding:18px 22px;margin-bottom:14px;border:1px solid #E8E4DC}
-.badge{font-size:11px;padding:2px 9px;border-radius:20px;font-family:system-ui,sans-serif;display:inline-block}
-.sub{font-size:11px;font-family:system-ui,sans-serif;color:#9C9990;letter-spacing:.07em;font-weight:600;margin-bottom:6px;text-transform:uppercase}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-.mc{background:rgba(255,255,255,.65);border-radius:8px;padding:10px 12px}
-.tabt{padding:5px 14px;font-size:12px;border:1px solid #C8C4BC;cursor:pointer}
-.dot{width:27px;height:27px;border-radius:50%;font-size:10px;cursor:pointer;transition:transform .1s}
+body{background:#2C2C2C;font-family:'Segoe UI',system-ui,sans-serif;padding:20px 16px;color:#EDE9DF;line-height:1.7}
+textarea{font-family:'Courier New',monospace;width:100%;min-height:160px;padding:12px 14px;font-size:14px;line-height:1.8;background:#1E1E1E;border:1.5px solid #4A4A4A;border-radius:8px;resize:vertical;color:#EDE9DF;outline:none;display:block;letter-spacing:.02em}
+textarea:focus{border-color:#D97706;box-shadow:0 0 0 2px rgba(217,119,6,.25)}
+textarea::placeholder{color:#666}
+pre{background:#141414;color:#D4CFC6;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.8;white-space:pre-wrap;font-family:'Courier New',monospace;margin:0;overflow-x:auto;border:1px solid #3A3A3A;letter-spacing:.02em}
+button{cursor:pointer;font-family:'Segoe UI',system-ui,sans-serif}
+.card{background:#363636;border-radius:12px;padding:20px 24px;margin-bottom:16px;border:1px solid #4A4A4A}
+.badge{font-size:11px;padding:3px 10px;border-radius:20px;font-family:'Segoe UI',system-ui,sans-serif;display:inline-block;letter-spacing:.04em;font-weight:600}
+.sub{font-size:11px;font-family:'Segoe UI',system-ui,sans-serif;color:#888;letter-spacing:.09em;font-weight:600;margin-bottom:8px;text-transform:uppercase}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.mc{background:#2C2C2C;border-radius:8px;padding:12px 14px;border:1px solid #4A4A4A}
+.tabt{padding:6px 16px;font-size:12px;border:1px solid #4A4A4A;cursor:pointer;font-family:'Segoe UI',system-ui,sans-serif}
+.dot{width:30px;height:30px;border-radius:50%;font-size:11px;cursor:pointer;transition:transform .1s;font-family:'Segoe UI',system-ui,sans-serif}
 .dot:hover{transform:scale(1.12)}
-.hint{background:none;border:1px dashed #C8C4BC;border-radius:6px;padding:4px 10px;font-size:11px;color:#6B6963;margin-top:10px}
-.hint:hover{background:#F5F0E8}
-.nav{background:none;border:1px solid #D5D2CA;border-radius:6px;padding:5px 12px;font-size:12px;color:#6B6963}
-.nav:hover{background:#F5F0E8}
-.chk{color:white;border:none;border-radius:8px;padding:9px 22px;font-size:14px;font-weight:500}
-.chk:hover{opacity:.88}
-.tog{margin-top:12px;background:none;border:1px solid #C8C4BC;border-radius:6px;padding:5px 12px;font-size:11px;color:#6B6963}
-.tog:hover{background:rgba(255,255,255,.5)}
-.back{font-size:12px;font-family:system-ui,sans-serif;color:#9C9990;text-decoration:none;margin-bottom:16px;display:inline-block}
-.back:hover{color:#3D3D3A}
-.mswitch{display:flex;gap:0;margin-bottom:20px;border-radius:10px;overflow:hidden;border:1px solid #E8E4DC}
-.mswitch button{flex:1;padding:12px 8px;font-size:13px;border:none;background:white;color:#6B6963;transition:background .15s,color .15s;line-height:1.3}
-.mswitch button.active{background:#1C1C1A;color:white}
-.mswitch button:first-child{border-right:1px solid #E8E4DC}
-.fix-hint pre{background:#2A2420;border-left:3px solid #D97706;border-radius:0 6px 6px 0;font-size:11px;padding:8px 12px;margin-top:4px;white-space:pre-wrap}
+.hint{background:none;border:1px dashed #4A4A4A;border-radius:6px;padding:5px 12px;font-size:12px;color:#888;margin-top:12px;letter-spacing:.02em}
+.hint:hover{background:#3A3A3A;color:#EDE9DF}
+.nav{background:none;border:1px solid #4A4A4A;border-radius:6px;padding:6px 14px;font-size:12px;color:#888}
+.nav:hover{background:#3A3A3A;color:#EDE9DF}
+.chk{color:#1A1A1A;border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:700;letter-spacing:.03em}
+.chk:hover{opacity:.9}
+.tog{margin-top:14px;background:none;border:1px solid #4A4A4A;border-radius:6px;padding:6px 14px;font-size:12px;color:#888}
+.tog:hover{background:#3A3A3A;color:#EDE9DF}
+.back{font-size:13px;font-family:'Segoe UI',system-ui,sans-serif;color:#888;text-decoration:none;margin-bottom:18px;display:inline-block;letter-spacing:.02em}
+.back:hover{color:#EDE9DF}
+.mswitch{display:flex;gap:0;margin-bottom:22px;border-radius:10px;overflow:hidden;border:1px solid #4A4A4A}
+.mswitch button{flex:1;padding:14px 8px;font-size:13px;border:none;background:#363636;color:#888;transition:background .15s,color .15s;line-height:1.4;font-family:'Segoe UI',system-ui,sans-serif;letter-spacing:.02em}
+.mswitch button.active{background:#D97706;color:#1A1A1A;font-weight:700}
+.mswitch button:first-child{border-right:1px solid #4A4A4A}
+.fix-hint pre{background:#1A1A1A;border-left:3px solid #D97706;border-radius:0 6px 6px 0;font-size:12px;padding:10px 14px;margin-top:6px;white-space:pre-wrap;color:#C8C4BA}
 @media(max-width:520px){.two{grid-template-columns:1fr}}</style>
 </head>
 <body>
