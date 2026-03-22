@@ -3,62 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>N5 Computing Science — Code Translation Trainer</title>
+<title>N5 Computing Science — Code Trainer</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#FAF9F6;font-family:Georgia,serif;min-height:100vh;padding:32px 16px;color:#1C1C1A}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-a.card{background:white;border:1px solid #E8E4DC;border-radius:12px;padding:20px 22px;text-decoration:none;color:inherit;display:block;transition:border-color .15s,box-shadow .15s}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:24px}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+a.card{background:white;border:1px solid #E8E4DC;border-radius:12px;padding:22px;text-decoration:none;color:inherit;display:block;transition:border-color .15s,box-shadow .15s}
 a.card:hover{border-color:#D97706;box-shadow:0 2px 10px rgba(217,119,6,.1)}
-.tag{font-size:11px;padding:2px 8px;border-radius:20px;font-family:system-ui,sans-serif;display:inline-block;margin-bottom:10px}
-.ct{font-size:16px;font-weight:600;margin-bottom:6px}
-.cd{font-size:13px;color:#6B6963;font-family:system-ui,sans-serif;line-height:1.55}
-.cf{font-size:11px;font-family:system-ui,sans-serif;color:#9C9990;margin-top:12px}
-.cf strong{color:#3D3D3A}
-.pill{display:inline-block;padding:9px 16px;border-radius:8px;font-family:system-ui,sans-serif;font-size:13px;font-weight:600;text-align:center;line-height:1.3}
+.num{font-size:11px;font-family:system-ui,sans-serif;color:#9C9990;margin-bottom:8px}
+.ct{font-size:16px;font-weight:600;margin-bottom:10px;line-height:1.3}
+.row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.pill{font-size:11px;padding:3px 8px;border-radius:20px;font-family:system-ui,sans-serif;white-space:nowrap}
+.arr{font-size:13px;color:#9C9990}
+.qs{font-size:11px;font-family:system-ui,sans-serif;color:#9C9990;margin-top:12px;border-top:1px solid #E8E4DC;padding-top:10px}
 </style>
 </head>
 <body>
-<div style="max-width:680px;margin:0 auto">
-  <div style="margin-bottom:26px">
+<div style="max-width:760px;margin:0 auto">
+  <div style="margin-bottom:8px">
     <h1 style="font-size:23px;font-weight:600">N5 Computing Science</h1>
-    <p style="font-size:13px;color:#9C9990;font-family:system-ui,sans-serif;margin-top:3px">Code Translation Trainer — 12 questions × 4 modes — free, no login</p>
+    <p style="font-size:13px;color:#9C9990;font-family:system-ui,sans-serif;margin-top:3px">Code Translation Trainer — 6 directions, 12 questions, no login needed</p>
   </div>
-  <div style="background:white;border:1px solid #E8E4DC;border-radius:12px;padding:18px 22px;margin-bottom:6px">
-    <p style="font-size:13px;color:#3D3D3A;font-family:system-ui,sans-serif;line-height:1.65;margin-bottom:14px">Practise translating between the three levels of code you need for N5. All examples use <strong>counter</strong> as the loop variable throughout.</p>
-    <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
-      <div class="pill" style="background:#1C1C1A;color:#F5C542">SQARL<br><span style="font-size:10px;font-weight:400;color:#9C9990">exam standard</span></div>
-      <div style="color:#9C9990;font-size:22px">&harr;</div>
-      <div class="pill" style="background:#DBEAFE;color:#1E40AF">Pseudocode<br><span style="font-size:10px;font-weight:400;color:#3B82F6">plain English</span></div>
-      <div style="color:#9C9990;font-size:22px">&harr;</div>
-      <div class="pill" style="background:#D1FAE5;color:#065F46">Python<br><span style="font-size:10px;font-weight:400;color:#059669">you know this</span></div>
-    </div>
+  <div style="background:white;border:1px solid #E8E4DC;border-radius:12px;padding:16px 20px;margin:18px 0;font-size:13px;color:#3D3D3A;font-family:system-ui,sans-serif;line-height:1.65">
+    Each topic has two translation directions. Q1–6 in one direction, Q7–12 in the other. All examples use <strong>counter</strong> as the loop variable.
   </div>
   <div class="grid">
-    <a class="card" href="pseudo-writer.html">
-      <span class="tag" style="background:#EFF6FF;color:#1E40AF">Core exam skill</span>
-      <div class="ct">Write pseudocode</div>
-      <div class="cd">Read a scenario and write plain English pseudocode. Most direct exam practice.</div>
-      <div class="cf">Scenario <strong>&rarr; Pseudocode</strong></div>
+    <a class="card" href="page1.html">
+      <div class="num">Topic 1</div>
+      <div class="ct">Pseudocode ↔ Python</div>
+      <div class="row"><span class="pill" style="background:#DBEAFE;color:#1E40AF">Pseudocode</span><span class="arr">→</span><span class="pill" style="background:#D1FAE5;color:#065F46">Python</span></div>
+      <div class="row"><span class="pill" style="background:#D1FAE5;color:#065F46">Python</span><span class="arr">→</span><span class="pill" style="background:#DBEAFE;color:#1E40AF">Pseudocode</span></div>
+      <div class="qs">Q1–6 &bull; Q7–12</div>
     </a>
-    <a class="card" href="python-to-pseudo.html">
-      <span class="tag" style="background:#D1FAE5;color:#065F46">Anchor in Python</span>
-      <div class="ct">Python &rarr; Pseudocode</div>
-      <div class="cd">Look at working Python and translate it into plain English pseudocode.</div>
-      <div class="cf">Python <strong>&rarr; Pseudocode</strong></div>
+    <a class="card" href="page2.html">
+      <div class="num">Topic 2</div>
+      <div class="ct">Python ↔ SQARL</div>
+      <div class="row"><span class="pill" style="background:#D1FAE5;color:#065F46">Python</span><span class="arr">→</span><span class="pill" style="background:#1C1C1A;color:#F5C542">SQARL</span></div>
+      <div class="row"><span class="pill" style="background:#1C1C1A;color:#F5C542">SQARL</span><span class="arr">→</span><span class="pill" style="background:#D1FAE5;color:#065F46">Python</span></div>
+      <div class="qs">Q1–6 &bull; Q7–12</div>
     </a>
-    <a class="card" href="python-to-sqarl.html">
-      <span class="tag" style="background:#FEF3C7;color:#92400E">Exam language</span>
-      <div class="ct">Python &rarr; SQARL</div>
-      <div class="cd">Translate Python directly into SQA Reference Language keywords.</div>
-      <div class="cf">Python <strong>&rarr; SQARL</strong></div>
-    </a>
-    <a class="card" href="sqarl-to-python.html">
-      <span class="tag" style="background:#F3E8FF;color:#6B21A8">Reading to writing</span>
-      <div class="ct">SQARL &rarr; Python</div>
-      <div class="cd">Read SQARL and convert it into working Python. Proves you understand what the SQARL is doing.</div>
-      <div class="cf">SQARL <strong>&rarr; Python</strong></div>
+    <a class="card" href="page3.html">
+      <div class="num">Topic 3</div>
+      <div class="ct">SQARL ↔ Pseudocode</div>
+      <div class="row"><span class="pill" style="background:#1C1C1A;color:#F5C542">SQARL</span><span class="arr">→</span><span class="pill" style="background:#DBEAFE;color:#1E40AF">Pseudocode</span></div>
+      <div class="row"><span class="pill" style="background:#DBEAFE;color:#1E40AF">Pseudocode</span><span class="arr">→</span><span class="pill" style="background:#1C1C1A;color:#F5C542">SQARL</span></div>
+      <div class="qs">Q1–6 &bull; Q7–12</div>
     </a>
   </div>
   <p style="font-size:11px;color:#9C9990;font-family:system-ui,sans-serif;text-align:center;margin-top:20px">No login &bull; No cost &bull; Works offline once loaded</p>
