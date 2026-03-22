@@ -53,7 +53,7 @@ function normText(raw) {
     .replace(/end\s+if\b/g,'endif').replace(/end\s+for\b/g,'endfor')
     .replace(/end\s+while\b/g,'endwhile').replace(/else\s+if\b/g,'elseif')
     .replace(/\u2260|!=|<>/g,'!=').replace(/\u2265|>=/g,'>=').replace(/\u2264|<=/g,'<=')
-    .replace(/\*\*/g,'^')
+    
     .replace(/\s+/g,' ').trim();
 }
 function hasAny(t,arr){ return arr.some(p=>t.includes(p.toLowerCase())); }
