@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>National 5 Computing — Pseudocode Trainer</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#FAF9F6;font-family:Georgia,serif;padding:20px 16px;color:#1C1C1A}
+textarea{font-family:'Courier New',monospace;width:100%;min-height:150px;padding:10px 12px;font-size:13px;line-height:1.7;background:#FAFAF7;border:1.5px solid #D5D2CA;border-radius:8px;resize:vertical;color:#1C1C1A;outline:none;display:block}
+textarea:focus{border-color:#D97706;box-shadow:0 0 0 2px rgba(217,119,6,0.12)}
+pre{background:#1E1B18;color:#F5F0E8;border-radius:8px;padding:12px 14px;font-size:12px;line-height:1.7;white-space:pre-wrap;font-family:'Courier New',monospace;margin:0;overflow-x:auto}
+button{cursor:pointer;font-family:system-ui,sans-serif}
+.card{background:white;border-radius:12px;padding:18px 22px;margin-bottom:14px;border:1px solid #E8E4DC}
+.badge{font-size:11px;padding:2px 9px;border-radius:20px;font-family:system-ui,sans-serif;display:inline-block}
+.nav-btn{background:none;border:1px solid #D5D2CA;border-radius:6px;padding:5px 12px;font-size:12px;color:#6B6963}
+.nav-btn:hover{background:#F5F0E8}
+.check-btn{color:white;border:none;border-radius:8px;padding:9px 22px;font-size:14px;font-weight:500;transition:opacity .15s}
+.check-btn:hover:not(:disabled){opacity:.88}
+.check-btn:disabled{cursor:not-allowed}
+.sub-label{font-size:11px;font-family:system-ui,sans-serif;color:#9C9990;letter-spacing:.07em;font-weight:600;margin-bottom:6px;text-transform:uppercase}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.mini-card{background:rgba(255,255,255,.65);border-radius:8px;padding:10px 12px}
+.tab-btn{padding:5px 14px;font-size:12px;font-family:system-ui,sans-serif;border:1px solid #C8C4BC;cursor:pointer}
+.dot-btn{width:27px;height:27px;border-radius:50%;cursor:pointer;font-size:10px;font-family:system-ui,sans-serif;transition:transform .1s}
+.dot-btn:hover{transform:scale(1.12)}
+.hint-btn{background:none;border:1px dashed #C8C4BC;border-radius:6px;padding:4px 10px;font-size:11px;color:#6B6963;margin-top:10px}
+.hint-btn:hover{background:#F5F0E8}
+.model-toggle{margin-top:12px;background:none;border:1px solid #C8C4BC;border-radius:6px;padding:5px 12px;font-size:11px;color:#6B6963}
+.model-toggle:hover{background:#F5F0E8}
+@media(max-width:520px){.two-col{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+const PROBLEMS=[
+{id:1,title:"Powers calculator",difficulty:"Starter",construct:"Sequence",
+scenario:"Write a program that asks the user to enter a base number and a power. The program should calculate and display the result. For example, if the user enters 3 and 4, the program displays 81.",
+python:"base = int(input(\"Enter the base number: \"))\npower = int(input(\"Enter the power: \"))\nresult = base ** power\nprint(\"Result:\", result)",
+pseudo:"ask the user to enter the base number and store it in 'base'\nask the user to enter the power and store it in 'power'\nset result to base to the power of power\ndisplay \"Result:\", result",
+sqarl:"RECEIVE base FROM KEYBOARD\nRECEIVE power FROM KEYBOARD\nSET result TO base ^ power\nSEND \"Result: \" & result TO DISPLAY"},
+
+{id:2,title:"Times table",difficulty:"Starter",construct:"Fixed loop (FOR)",
+scenario:"Write a program that asks the user which times table they want to see, then displays every result from 1\xd7 to 12\xd7.",
+python:"table = int(input(\"Which times table? \"))\nfor i in range(1, 13):\n    print(i, \"x\", table, \"=\", i * table)",
+pseudo:"ask the user which times table they want and store it in 'table'\nfor each number from 1 to 12\n    display the number, \"x\", table, \"=\", the number multiplied by table\nend for",
+sqarl:"RECEIVE table FROM KEYBOARD\nFOR counter FROM 1 TO 12 DO\n    SEND counter & \" x \" & table & \" = \" & counter * table TO DISPLAY\nEND FOR"},
+
+{id:3,title:"Bigger number",difficulty:"Starter",construct:"Selection (IF/ELSE IF/ELSE)",
+scenario:"Write a program that asks the user to enter two numbers. The program should display which number is bigger, or if they are equal.",
+python:"first = int(input(\"Enter the first number: \"))\nsecond = int(input(\"Enter the second number: \"))\nif first > second:\n    print(\"The first number is bigger\")\nelif first < second:\n    print(\"The second number is bigger\")\nelse:\n    print(\"The numbers are equal\")",
+pseudo:"ask the user to enter the first number and store it in 'first'\nask the user to enter the second number and store it in 'second'\nif first is greater than second\n    display \"The first number is bigger\"\nelse if first is less than second\n    display \"The second number is bigger\"\nelse\n    display \"The numbers are equal\"\nend if",
+sqarl:"RECEIVE first FROM KEYBOARD\nRECEIVE second FROM KEYBOARD\nIF first > second THEN\n    SEND \"The first number is bigger\" TO DISPLAY\nELSE IF first < second THEN\n    SEND \"The second number is bigger\" TO DISPLAY\nELSE\n    SEND \"The numbers are equal\" TO DISPLAY\nEND IF"},
+
+{id:4,title:"Grade classifier",difficulty:"Core",construct:"IF/ELSE IF chain",
+scenario:"Write a program that asks the user to enter a percentage score. Display the grade: A (70 or above), B (60\u201369), C (50\u201359), or Fail (below 50).",
+python:"score = int(input(\"Enter your score: \"))\nif score >= 70:\n    print(\"A\")\nelif score >= 60:\n    print(\"B\")\nelif score >= 50:\n    print(\"C\")\nelse:\n    print(\"Fail\")",
+pseudo:"ask the user to enter their score and store it in 'score'\nif score is greater than or equal to 70\n    display \"A\"\nelse if score is greater than or equal to 60\n    display \"B\"\nelse if score is greater than or equal to 50\n    display \"C\"\nelse\n    display \"Fail\"\nend if",
+sqarl:"RECEIVE score FROM KEYBOARD\nIF score >= 70 THEN\n    SEND \"A\" TO DISPLAY\nELSE IF score >= 60 THEN\n    SEND \"B\" TO DISPLAY\nELSE IF score >= 50 THEN\n    SEND \"C\" TO DISPLAY\nELSE\n    SEND \"Fail\" TO DISPLAY\nEND IF"},
+
+{id:5,title:"Password checker",difficulty:"Core",construct:"Conditional loop (WHILE)",
+scenario:"Write a program that keeps asking the user to enter a password until they type the correct one ('python123'). When they get it right, display 'Access granted'.",
+python:"password = input(\"Enter password: \")\nwhile password != \"python123\":\n    print(\"Wrong password, try again\")\n    password = input(\"Enter password: \")\nprint(\"Access granted\")",
+pseudo:"ask the user to enter the password and store it in 'password'\nwhile the password is not 'python123'\n    display \"Wrong password, try again\"\n    ask the user to enter the password again\nend while\ndisplay \"Access granted\"",
+sqarl:"RECEIVE password FROM KEYBOARD\nWHILE password \u2260 \"python123\" DO\n    SEND \"Wrong password, try again\" TO DISPLAY\n    RECEIVE password FROM KEYBOARD\nEND WHILE\nSEND \"Access granted\" TO DISPLAY"},
+
+{id:6,title:"Running total",difficulty:"Core",construct:"Fixed loop + running total",
+scenario:"Write a program that asks the user to enter 5 numbers one at a time. At the end, display the total of all 5 numbers.",
+python:"total = 0\nfor i in range(5):\n    number = int(input(\"Enter a number: \"))\n    total = total + number\nprint(\"Total:\", total)",
+pseudo:"set total to 0\nfor each number from 1 to 5\n    ask the user to enter a number and store it in 'number'\n    add number to total\nend for\ndisplay \"Total:\", total",
+sqarl:"SET total TO 0\nFOR counter FROM 1 TO 5 DO\n    RECEIVE number FROM KEYBOARD\n    SET total TO total + number\nEND FOR\nSEND \"Total: \" & total TO DISPLAY"},
+
+{id:7,title:"Count the passes",difficulty:"Core",construct:"Array + fixed loop + counter",
+scenario:"A class of 5 pupils got the following test scores: 72, 45, 88, 51, 63. Write a program that counts how many pupils passed (scored 50 or more) and displays the total.",
+python:"scores = [72, 45, 88, 51, 63]\npasses = 0\nfor i in range(5):\n    if scores[i] >= 50:\n        passes = passes + 1\nprint(\"Number of passes:\", passes)",
+pseudo:"create an array called scores with the values: 72, 45, 88, 51, 63\nset passes to 0\nfor each position from 0 to 4\n    if scores[position] is greater than or equal to 50\n        add 1 to passes\n    end if\nend for\ndisplay \"Number of passes:\", passes",
+sqarl:"SET scores TO [72, 45, 88, 51, 63]\nSET passes TO 0\nFOR counter FROM 0 TO 4 DO\n    IF scores[counter] >= 50 THEN\n        SET passes TO passes + 1\n    END IF\nEND FOR\nSEND \"Number of passes: \" & passes TO DISPLAY"},
+
+{id:8,title:"Array average",difficulty:"Challenge",construct:"Array + fixed loop + average",
+scenario:"A program stores the test scores of 6 pupils in an array called scores. Write pseudocode that calculates and displays the average score.",
+python:"scores = [72, 85, 91, 63, 78, 88]\ntotal = 0\nfor i in range(6):\n    total = total + scores[i]\naverage = total / 6\nprint(\"Average:\", average)",
+pseudo:"create an array called scores with 6 values: 72, 85, 91, 63, 78, 88\nset total to 0\nfor each position from 0 to 5\n    add scores[position] to total\nend for\nset average to total divided by 6\ndisplay \"Average:\", average",
+sqarl:"SET scores TO [72, 85, 91, 63, 78, 88]\nSET total TO 0\nFOR counter FROM 0 TO 5 DO\n    SET total TO total + scores[counter]\nEND FOR\nSET average TO total / 6\nSEND \"Average: \" & average TO DISPLAY"},
+
+{id:9,title:"Linear search",difficulty:"Challenge",construct:"Array + fixed loop + linear search",
+scenario:"An array called names stores five pupil names: \"Ali\", \"Beth\", \"Cal\", \"Dana\", \"Eve\". Write a program that asks the user to enter a name, searches the array, and displays \"Found\" or \"Not found\".",
+python:"names = [\"Ali\", \"Beth\", \"Cal\", \"Dana\", \"Eve\"]\nsearch = input(\"Enter a name: \")\nfound = False\nfor i in range(5):\n    if names[i] == search:\n        found = True\nif found:\n    print(\"Found\")\nelse:\n    print(\"Not found\")",
+pseudo:"create an array called names with the values: \"Ali\", \"Beth\", \"Cal\", \"Dana\", \"Eve\"\nask the user to enter a name to search for and store it in 'search'\nset found to false\nfor each position from 0 to 4\n    if names[position] equals search\n        set found to true\n    end if\nend for\nif found is true\n    display \"Found\"\nelse\n    display \"Not found\"\nend if",
+sqarl:"SET names TO [\"Ali\", \"Beth\", \"Cal\", \"Dana\", \"Eve\"]\nRECEIVE search FROM KEYBOARD\nSET found TO false\nFOR counter FROM 0 TO 4 DO\n    IF names[counter] = search THEN\n        SET found TO true\n    END IF\nEND FOR\nIF found = true THEN\n    SEND \"Found\" TO DISPLAY\nELSE\n    SEND \"Not found\" TO DISPLAY\nEND IF"},
+
+{id:10,title:"Login with lockout",difficulty:"Challenge",construct:"Conditional loop + counter + nested IF",
+scenario:"Write a program that gives the user up to 3 attempts to enter the correct PIN (1234). After each wrong attempt, display how many attempts remain. If they fail all 3, display 'Account locked'.",
+python:"attempts = 0\npin = int(input(\"Enter PIN: \"))\nwhile pin != 1234 and attempts < 2:\n    attempts = attempts + 1\n    print(\"Wrong PIN.\", 2 - attempts, \"attempts remaining\")\n    pin = int(input(\"Enter PIN: \"))\nif pin == 1234:\n    print(\"Access granted\")\nelse:\n    print(\"Account locked\")",
+pseudo:"set attempts to 0\nask the user to enter the PIN and store it in 'pin'\nwhile the PIN is not 1234 and attempts is less than 2\n    add 1 to attempts\n    display \"Wrong PIN.\", 2 minus attempts, \"attempts remaining\"\n    ask the user to enter the PIN again\nend while\nif the PIN equals 1234\n    display \"Access granted\"\nelse\n    display \"Account locked\"\nend if",
+sqarl:"SET attempts TO 0\nRECEIVE pin FROM KEYBOARD\nWHILE pin \u2260 1234 AND attempts < 2 DO\n    SET attempts TO attempts + 1\n    SEND \"Wrong PIN. \" & (2 - attempts) & \" attempts remaining\" TO DISPLAY\n    RECEIVE pin FROM KEYBOARD\nEND WHILE\nIF pin = 1234 THEN\n    SEND \"Access granted\" TO DISPLAY\nELSE\n    SEND \"Account locked\" TO DISPLAY\nEND IF"},
+
+{id:11,title:"Hottest day",difficulty:"A-candidate",construct:"Array + fixed loop + running max + tracking index",
+scenario:"An array called temps stores daily temperatures for a week: 12, 18, 9, 22, 17, 25, 14. Write a program that finds the highest temperature and displays which day number (1\u20137) it occurred on.",
+python:"temps = [12, 18, 9, 22, 17, 25, 14]\nhighest = temps[0]\nday = 1\nfor i in range(7):\n    if temps[i] > highest:\n        highest = temps[i]\n        day = i + 1\nprint(\"Highest:\", highest)\nprint(\"Day:\", day)",
+pseudo:"create an array called temps with the values: 12, 18, 9, 22, 17, 25, 14\nset highest to temps[0]\nset day to 1\nfor each position from 0 to 6\n    if temps[position] is greater than highest\n        set highest to temps[position]\n        set day to the position plus 1\n    end if\nend for\ndisplay \"Highest:\", highest\ndisplay \"Day:\", day",
+sqarl:"SET temps TO [12, 18, 9, 22, 17, 25, 14]\nSET highest TO temps[0]\nSET day TO 1\nFOR counter FROM 0 TO 6 DO\n    IF temps[counter] > highest THEN\n        SET highest TO temps[counter]\n        SET day TO counter + 1\n    END IF\nEND FOR\nSEND \"Highest: \" & highest TO DISPLAY\nSEND \"Day: \" & day TO DISPLAY"},
+
+{id:12,title:"Guessing game",difficulty:"A-candidate",construct:"Conditional loop + counter + nested IF/ELSE",
+scenario:"The secret number is 42. Write a program that lets the user keep guessing until they get it right. After each wrong guess, tell them whether their guess was too high or too low. At the end, display how many guesses it took.",
+python:"secret = 42\nguess = int(input(\"Enter your guess: \"))\nattempts = 1\nwhile guess != secret:\n    if guess > secret:\n        print(\"Too high!\")\n    else:\n        print(\"Too low!\")\n    guess = int(input(\"Enter your guess: \"))\n    attempts = attempts + 1\nprint(\"Correct! You took\", attempts, \"guesses\")",
+pseudo:"set secret to 42\nask the user to enter their guess and store it in 'guess'\nset attempts to 1\nwhile guess is not equal to secret\n    if guess is greater than secret\n        display \"Too high!\"\n    else\n        display \"Too low!\"\n    end if\n    ask the user to enter their guess again\n    add 1 to attempts\nend while\ndisplay \"Correct! You took\", attempts, \"guesses\"",
+sqarl:"SET secret TO 42\nRECEIVE guess FROM KEYBOARD\nSET attempts TO 1\nWHILE guess \u2260 secret DO\n    IF guess > secret THEN\n        SEND \"Too high!\" TO DISPLAY\n    ELSE\n        SEND \"Too low!\" TO DISPLAY\n    END IF\n    RECEIVE guess FROM KEYBOARD\n    SET attempts TO attempts + 1\nEND WHILE\nSEND \"Correct! You took \" & attempts & \" guesses\" TO DISPLAY"},
+];
+
+const DIFF={
+  Starter:      {bg:"#D1FAE5",tx:"#065F46"},
+  Core:         {bg:"#DBEAFE",tx:"#1E40AF"},
+  Challenge:    {bg:"#FEE2E2",tx:"#991B1B"},
+  "A-candidate":{bg:"#1C1C1A",tx:"#F5C542"}
+};
+const VERDICT={
+  strong:    {bg:"#ECFDF5",border:"#6EE7B7",head:"#065F46",label:"Strong answer \u2713"},
+  mostly:    {bg:"#FFFBEB",border:"#FCD34D",head:"#92400E",label:"Nearly there"},
+  developing:{bg:"#FEF2F2",border:"#FCA5A5",head:"#991B1B",label:"Keep working on it"}
+};
+
+let cur=0, feedback=null, loading=false, showPy=false, showModel=false, modelTab="pseudo";
+const done=new Set();
+let savedCode="";
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+function icon(v){
+  if(v===true||v==="correct") return {g:"\u2713",c:"#059669"};
+  if(v==="partial")           return {g:"\u25d0",c:"#D97706"};
+  return                             {g:"\u2717",c:"#DC2626"};
+}
+
+function render(){
+  const p=PROBLEMS[cur];
+  const vs=VERDICT[feedback?.overallVerdict]||{};
+  const d=DIFF[p.difficulty]||{};
+
+  const dots=PROBLEMS.map((pr,i)=>`
+    <button class="dot-btn" onclick="go(${i})"
+      style="border:2px solid ${i===cur?"#D97706":"#D5D2CA"};background:${done.has(pr.id)?"#D97706":i===cur?"white":"transparent"};color:${done.has(pr.id)?"white":"#6B6963"};font-weight:${i===cur?600:400}">
+      ${i+1}
+    </button>`).join("");
+
+  const fbHtml=feedback&&!feedback.error?`
+    <div style="background:${vs.bg};border-radius:12px;padding:18px 22px;margin-bottom:14px;border:1px solid ${vs.border}">
+      <div style="font-size:15px;font-weight:600;color:${vs.head};margin-bottom:14px;font-family:system-ui,sans-serif">${vs.label}</div>
+      ${[["Construct",feedback.constructChoice,feedback.constructFeedback],
+         ["Logic",feedback.logicCorrect,feedback.logicFeedback],
+         ["Structure",feedback.structureGood,feedback.structureFeedback]].map(([lbl,val,txt])=>{
+           const ic=icon(val);
+           return `<div style="display:flex;gap:10px;margin-bottom:10px;align-items:flex-start">
+             <span style="color:${ic.c};min-width:16px;font-size:15px;font-family:system-ui,sans-serif">${ic.g}</span>
+             <div style="font-size:14px;color:#3D3D3A;line-height:1.55"><strong style="font-family:system-ui,sans-serif;font-size:13px">${lbl}:</strong> ${esc(txt)}</div>
+           </div>`;
+         }).join("")}
+      <div class="two-col">
+        <div class="mini-card"><div class="sub-label">Well done</div><div style="font-size:13px;color:#1C1C1A;line-height:1.5">\u2713 ${esc(feedback.praise)}</div></div>
+        <div class="mini-card"><div class="sub-label">One thing to fix</div><div style="font-size:13px;color:#1C1C1A;line-height:1.5">\u2192 ${esc(feedback.oneThingToFix)}</div></div>
+      </div>
+      <button class="model-toggle" onclick="toggleModel()">${showModel?"Hide model answer \u25b2":"See model answer \u25bc"}</button>
+      ${showModel?`
+      <div style="margin-top:12px">
+        <div style="display:flex">
+          <button class="tab-btn" onclick="setTab('pseudo')" style="border-radius:6px 0 0 0;background:${modelTab==="pseudo"?"#1E1B18":"rgba(255,255,255,.5)"};color:${modelTab==="pseudo"?"#F5F0E8":"#6B6963"};border-bottom:${modelTab==="pseudo"?"none":"1px solid #C8C4BC"}">Pseudocode</button>
+          <button class="tab-btn" onclick="setTab('sqarl')"  style="border-radius:0 6px 0 0;background:${modelTab==="sqarl" ?"#1E1B18":"rgba(255,255,255,.5)"};color:${modelTab==="sqarl" ?"#F5F0E8":"#6B6963"};border-bottom:${modelTab==="sqarl" ?"none":"1px solid #C8C4BC"}">SQARL</button>
+        </div>
+        <pre style="border-radius:${modelTab==="pseudo"?"0 6px 6px 6px":"6px 0 6px 6px"}">${esc(modelTab==="pseudo"?p.pseudo:p.sqarl)}</pre>
+        ${modelTab==="sqarl"?`<p style="font-size:12px;color:#6B6963;font-family:system-ui,sans-serif;margin-top:8px">SQA Reference Language \u2014 the exam standard. Notice how it maps line-for-line from your pseudocode. The keywords change; the logic doesn\u2019t.</p>`:""}
+      </div>`:""}
+    </div>`:feedback?.error?`
+    <div style="background:#FEF2F2;border-radius:12px;padding:14px 18px;border:1px solid #FCA5A5;color:#991B1B;font-family:system-ui,sans-serif;font-size:14px;margin-bottom:14px">
+      Something went wrong \u2014 check your internet connection and try again.
+    </div>`:"";
+
+  document.getElementById("app").innerHTML=`
+  <div style="max-width:760px;margin:0 auto">
+
+    <!-- header -->
+    <div style="margin-bottom:20px">
+      <h1 style="font-size:20px;font-weight:600;color:#1C1C1A;margin-bottom:2px">N5 Computing Science</h1>
+      <p style="font-size:13px;color:#9C9990;font-family:system-ui,sans-serif">Pseudocode Practice Trainer</p>
+    </div>
+
+    <!-- nav -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
+        ${dots}
+        <span style="font-size:11px;color:#9C9990;font-family:system-ui,sans-serif;margin-left:6px">${done.size}/12 strong</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="nav-btn" onclick="go(${cur-1})">&#8592; Prev</button>
+        <button class="nav-btn" onclick="go(${cur+1})">Next &#8594;</button>
+      </div>
+    </div>
+
+    <!-- problem card -->
+    <div class="card">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="font-size:17px;font-weight:600;color:#1C1C1A">${esc(p.title)}</span>
+        <span class="badge" style="background:${d.bg};color:${d.tx}">${p.difficulty}</span>
+        <span style="font-size:11px;color:#9C9990;font-family:system-ui,sans-serif;margin-left:auto">
+          Construct: <strong style="color:#6B6963">${esc(p.construct)}</strong>
+        </span>
+      </div>
+      <p style="color:#3D3D3A;line-height:1.65;font-size:14px">${esc(p.scenario)}</p>
+      <button class="hint-btn" onclick="togglePy()">${showPy?"Hide Python &#9650;":"Show Python hint &#9660;"}</button>
+      ${showPy?`<pre style="margin-top:10px">${esc(p.python)}</pre>`:""}
+    </div>
+
+    <!-- editor -->
+    <div class="card">
+      <div class="sub-label">Your pseudocode</div>
+      <textarea id="code" placeholder="Write your pseudocode here...&#10;Remember: plain English, one line per Python line.&#10;Indent anything inside a loop or if/else."></textarea>
+      <div style="text-align:right;margin-top:10px">
+        <button class="check-btn" id="checkBtn" onclick="doCheck()" style="background:${loading?"#C8C4BC":"#D97706"}" ${loading?"disabled":""}>
+          ${loading?"Checking\u2026":"Check my pseudocode \u2192"}
+        </button>
+      </div>
+    </div>
+
+    ${fbHtml}
+
+  </div>`;
+
+  // restore textarea value
+  const ta=document.getElementById("code");
+  if(ta){
+    ta.value=savedCode;
+    ta.addEventListener("input",e=>savedCode=e.target.value);
+  }
+}
+
+function go(i){
+  cur=(i+PROBLEMS.length)%PROBLEMS.length;
+  feedback=null; showPy=false; showModel=false; modelTab="pseudo"; savedCode="";
+  render();
+}
+
+function togglePy(){
+  savedCode=document.getElementById("code")?.value||savedCode;
+  showPy=!showPy; render();
+}
+
+function toggleModel(){ showModel=!showModel; render(); }
+function setTab(t){ modelTab=t; render(); }
+
+async function doCheck(){
+  const code=(document.getElementById("code")?.value||savedCode||"").trim();
+  if(!code||loading) return;
+  savedCode=code; loading=true; feedback=null; render();
+  const p=PROBLEMS[cur];
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:800,
+        messages:[{role:"user",content:
+          `You are evaluating a Scottish National 5 Computing Science pupil's pseudocode. They write plain English pseudocode (roughly one line per Python line), not SQA Reference Language. Be encouraging but honest and brief.\n\nPROBLEM: ${p.scenario}\nCONSTRUCT NEEDED: ${p.construct}\nPYTHON EQUIVALENT:\n${p.python}\n\nPUPIL'S PSEUDOCODE:\n${code}\n\nReply ONLY with valid JSON, no markdown, no backticks:\n{"constructChoice":"correct" or "wrong" or "partial","constructFeedback":"one sentence","logicCorrect":true or false,"logicFeedback":"one sentence","structureGood":true or false,"structureFeedback":"one sentence","overallVerdict":"strong" or "mostly" or "developing","oneThingToFix":"one specific actionable sentence","praise":"one specific genuine thing they got right"}`
+        }]
+      })
+    });
+    const data=await res.json();
+    const raw=data.content?.find(b=>b.type==="text")?.text||"{}";
+    feedback=JSON.parse(raw.replace(/```[a-z]*|```/g,"").trim());
+    if(feedback.overallVerdict==="strong") done.add(p.id);
+  } catch(e){
+    feedback={error:true};
+  }
+  loading=false; render();
+}
+
+render();
+</script>
+</body>
+</html>
