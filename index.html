@@ -2,144 +2,75 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>N5 Computing Science — Code Translation Trainer</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>N5 Computing Science &mdash; Code Translation Trainer</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#FAF9F6;font-family:Georgia,serif;min-height:100vh;padding:32px 16px;color:#1C1C1A}
 h1{font-size:23px;font-weight:600}
 .sub{font-size:13px;color:#9C9990;font-family:system-ui,sans-serif;margin-top:3px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
-@media(max-width:580px){.grid{grid-template-columns:1fr}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
 a.card{background:white;border:1px solid #E8E4DC;border-radius:12px;padding:20px 22px;text-decoration:none;color:inherit;display:block;transition:border-color .15s,box-shadow .15s}
 a.card:hover{border-color:#D97706;box-shadow:0 2px 10px rgba(217,119,6,.1)}
-.card-tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-family:system-ui,sans-serif;margin-bottom:10px}
-.card-title{font-size:16px;font-weight:600;margin-bottom:6px}
-.card-desc{font-size:13px;color:#6B6963;font-family:system-ui,sans-serif;line-height:1.55}
-.card-from{font-size:11px;font-family:system-ui,sans-serif;color:#9C9990;margin-top:12px}
-.card-from strong{color:#3D3D3A}
-.pill{display:inline-block;padding:8px 14px;border-radius:8px;font-family:system-ui,sans-serif;font-size:13px;font-weight:600;text-align:center}
-.key-box{background:white;border:1px solid #E8E4DC;border-radius:12px;padding:18px 22px;margin-top:20px}
-.key-box input{width:100%;padding:9px 12px;border:1.5px solid #D5D2CA;border-radius:8px;font-size:13px;font-family:system-ui,sans-serif;outline:none;margin-top:8px;color:#1C1C1A}
-.key-box input:focus{border-color:#D97706}
-.save-btn{background:#D97706;color:white;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-family:system-ui,sans-serif;cursor:pointer;margin-top:8px}
-.save-btn:hover{opacity:.88}
-.status{font-size:12px;font-family:system-ui,sans-serif;margin-top:8px}
-.status.ok{color:#059669} .status.missing{color:#DC2626}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-family:system-ui,sans-serif;margin-bottom:10px}
+.ct{font-size:16px;font-weight:600;margin-bottom:6px}
+.cd{font-size:13px;color:#6B6963;font-family:system-ui,sans-serif;line-height:1.55}
+.cf{font-size:11px;font-family:system-ui,sans-serif;color:#9C9990;margin-top:12px}
+.cf strong{color:#3D3D3A}
+.pill{display:inline-block;padding:9px 16px;border-radius:8px;font-family:system-ui,sans-serif;font-size:13px;font-weight:600;text-align:center;line-height:1.3}
 </style>
 </head>
 <body>
-<div style="max-width:700px;margin:0 auto">
-
+<div style="max-width:680px;margin:0 auto">
   <div style="margin-bottom:26px">
     <h1>N5 Computing Science</h1>
-    <p class="sub">Code Translation Trainer &mdash; 12 questions &times; 4 modes</p>
+    <p class="sub">Code Translation Trainer &mdash; 12 questions &times; 4 modes &mdash; instant feedback, no login needed</p>
   </div>
 
-  <!-- Triangle -->
-  <div style="background:white;border:1px solid #E8E4DC;border-radius:12px;padding:18px 22px;margin-bottom:8px">
-    <p style="font-size:13px;color:#3D3D3A;line-height:1.65;font-family:system-ui,sans-serif;margin-bottom:14px">
-      In N5 Computing Science you need to move fluently between three levels of code. This trainer gives you practice in every direction.
+  <div style="background:white;border:1px solid #E8E4DC;border-radius:12px;padding:18px 22px;margin-bottom:6px">
+    <p style="font-size:13px;color:#3D3D3A;font-family:system-ui,sans-serif;line-height:1.65;margin-bottom:14px">
+      In N5 Computing Science you need to move fluently between three levels of code. Pick a mode and practise translating in any direction.
     </p>
     <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
       <div class="pill" style="background:#1C1C1A;color:#F5C542">SQARL<br><span style="font-size:10px;font-weight:400;color:#9C9990">exam standard</span></div>
-      <div style="color:#9C9990;font-size:20px;font-family:system-ui,sans-serif">&harr;</div>
+      <div style="color:#9C9990;font-size:22px;font-family:system-ui,sans-serif">&harr;</div>
       <div class="pill" style="background:#DBEAFE;color:#1E40AF">Pseudocode<br><span style="font-size:10px;font-weight:400;color:#3B82F6">plain English</span></div>
-      <div style="color:#9C9990;font-size:20px;font-family:system-ui,sans-serif">&harr;</div>
+      <div style="color:#9C9990;font-size:22px;font-family:system-ui,sans-serif">&harr;</div>
       <div class="pill" style="background:#D1FAE5;color:#065F46">Python<br><span style="font-size:10px;font-weight:400;color:#059669">you know this</span></div>
     </div>
   </div>
 
-  <!-- Mode cards -->
   <div class="grid">
-
     <a class="card" href="pseudo-writer.html">
-      <span class="card-tag" style="background:#EFF6FF;color:#1E40AF">Core exam skill</span>
-      <div class="card-title">Write pseudocode</div>
-      <div class="card-desc">Read a problem description and write plain English pseudocode. The most direct exam practice.</div>
-      <div class="card-from">Scenario <strong>&rarr; Pseudocode</strong></div>
+      <span class="tag" style="background:#EFF6FF;color:#1E40AF">Core exam skill</span>
+      <div class="ct">Write pseudocode</div>
+      <div class="cd">Read a scenario and write plain English pseudocode. The most direct exam practice.</div>
+      <div class="cf">Scenario <strong>&rarr; Pseudocode</strong></div>
     </a>
-
     <a class="card" href="python-to-pseudo.html">
-      <span class="card-tag" style="background:#D1FAE5;color:#065F46">Anchor in Python</span>
-      <div class="card-title">Python &rarr; Pseudocode</div>
-      <div class="card-desc">Look at working Python and translate it into plain English pseudocode. Builds the bridge from what you know.</div>
-      <div class="card-from">Python <strong>&rarr; Pseudocode</strong></div>
+      <span class="tag" style="background:#D1FAE5;color:#065F46">Anchor in Python</span>
+      <div class="ct">Python &rarr; Pseudocode</div>
+      <div class="cd">Look at working Python and translate it into plain English pseudocode.</div>
+      <div class="cf">Python <strong>&rarr; Pseudocode</strong></div>
     </a>
-
     <a class="card" href="python-to-sqarl.html">
-      <span class="card-tag" style="background:#FEF3C7;color:#92400E">Exam language</span>
-      <div class="card-title">Python &rarr; SQARL</div>
-      <div class="card-desc">Translate Python directly into SQA Reference Language. Master the exact keywords the exam uses.</div>
-      <div class="card-from">Python <strong>&rarr; SQARL</strong></div>
+      <span class="tag" style="background:#FEF3C7;color:#92400E">Exam language</span>
+      <div class="ct">Python &rarr; SQARL</div>
+      <div class="cd">Translate Python directly into SQA Reference Language keywords.</div>
+      <div class="cf">Python <strong>&rarr; SQARL</strong></div>
     </a>
-
     <a class="card" href="sqarl-to-python.html">
-      <span class="card-tag" style="background:#F3E8FF;color:#6B21A8">Reading to writing</span>
-      <div class="card-title">SQARL &rarr; Python</div>
-      <div class="card-desc">Read SQARL code and convert it into working Python. Proves you truly understand what the SQARL is doing.</div>
-      <div class="card-from">SQARL <strong>&rarr; Python</strong></div>
+      <span class="tag" style="background:#F3E8FF;color:#6B21A8">Reading to writing</span>
+      <div class="ct">SQARL &rarr; Python</div>
+      <div class="cd">Read SQARL and convert it into working Python. Proves you understand what the SQARL is doing.</div>
+      <div class="cf">SQARL <strong>&rarr; Python</strong></div>
     </a>
-
-  </div>
-
-  <!-- API key setup -->
-  <div class="key-box">
-    <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="toggleKey()">
-      <div>
-        <div style="font-size:14px;font-weight:600;color:#1C1C1A">AI Feedback Setup</div>
-        <div id="keyStatus" class="status missing">Not set up &mdash; AI checking won&rsquo;t work without a key</div>
-      </div>
-      <span id="keyArrow" style="font-family:system-ui,sans-serif;color:#9C9990;font-size:13px">&#9660;</span>
-    </div>
-    <div id="keyPanel" style="display:none;margin-top:14px;border-top:1px solid #E8E4DC;padding-top:14px">
-      <p style="font-size:13px;color:#3D3D3A;font-family:system-ui,sans-serif;line-height:1.6">
-        To use AI feedback, you need a free Anthropic API key.<br>
-        1. Go to <strong>console.anthropic.com</strong> and create a free account<br>
-        2. Click API Keys and create a new key<br>
-        3. Paste it below &mdash; it saves in this browser only, never sent anywhere except Anthropic
-      </p>
-      <input type="password" id="keyInput" placeholder="sk-ant-..." />
-      <br>
-      <button class="save-btn" onclick="saveKey()">Save key</button>
-      <button onclick="clearKey()" style="margin-left:8px;background:none;border:1px solid #D5D2CA;border-radius:8px;padding:8px 14px;font-size:13px;font-family:system-ui,sans-serif;cursor:pointer;color:#6B6963">Clear</button>
-    </div>
   </div>
 
   <p style="font-size:11px;color:#9C9990;font-family:system-ui,sans-serif;text-align:center;margin-top:20px">
-    N5 Computing Science &mdash; pseudocode, SQARL and Python practice
+    No login &bull; No cost &bull; Works offline once loaded
   </p>
-
 </div>
-<script>
-function updateStatus(){
-  const k=localStorage.getItem('anthropic_key');
-  const s=document.getElementById('keyStatus');
-  if(k){s.textContent='AI feedback ready \u2713';s.className='status ok';}
-  else{s.textContent='Not set up \u2014 AI checking won\u2019t work without a key';s.className='status missing';}
-}
-function toggleKey(){
-  const p=document.getElementById('keyPanel');
-  const a=document.getElementById('keyArrow');
-  const open=p.style.display==='block';
-  p.style.display=open?'none':'block';
-  a.innerHTML=open?'&#9660;':'&#9650;';
-  if(!open){const k=localStorage.getItem('anthropic_key');if(k)document.getElementById('keyInput').value=k;}
-}
-function saveKey(){
-  const v=document.getElementById('keyInput').value.trim();
-  if(!v){alert('Please enter a key');return;}
-  localStorage.setItem('anthropic_key',v);
-  updateStatus();
-  document.getElementById('keyPanel').style.display='none';
-  document.getElementById('keyArrow').innerHTML='&#9660;';
-}
-function clearKey(){
-  localStorage.removeItem('anthropic_key');
-  document.getElementById('keyInput').value='';
-  updateStatus();
-}
-updateStatus();
-</script>
 </body>
 </html>
