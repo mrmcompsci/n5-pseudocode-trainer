@@ -38,7 +38,7 @@ button{cursor:pointer;font-family:'Segoe UI',system-ui,sans-serif}
 </head>
 <body>
 <div style="max-width:760px;margin:0 auto">
-<a class="back" href="index.html">← All topics</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:8px"><a class="back" href="index.html" style="margin-bottom:0">← All topics</a><span id="student-badge" style="background:#D97706;color:#1A1A1A;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px"></span></div>
 <h1 style="font-size:20px;font-weight:600;margin-bottom:4px">Python ↔ SQARL</h1>
 <p style="font-size:12px;color:#9C9990;font-family:system-ui,sans-serif;margin-bottom:16px">N5 Computing Science — 10 questions per mode</p>
 <div class="mswitch">
@@ -176,9 +176,67 @@ function chk(){
   const ov=verdict(rs);
   fb={rs,ov};
   if(ov==="strong")c.done.add(p.id);
-  showM=false;render();
+  saveScore(mode,c.qs,c.done);
+  if(c.done.size===c.qs.length&&ov==="strong"){showM=false;render();setTimeout(()=>showSectionBreakdown(mode,c.qs,c.done),400);}
+  else{showM=false;render();}
 }
+
+function saveScore(mode,qs,doneSet){
+  const name=localStorage.getItem('ct_student_name');
+  if(!name)return;
+  const pageKey=window.location.pathname.replace(/.*page(\d).*/,'$1');
+  const sectionKey='ct_scores_p'+pageKey+(mode==='A'?'a':'b');
+  const questions=qs.map(q=>({id:q.id,title:q.title,construct:q.construct,passed:doneSet.has(q.id)}));
+  localStorage.setItem(sectionKey,JSON.stringify({strong:doneSet.size,completed:qs.length,questions,ts:Date.now()}));
+}
+
+function showSectionBreakdown(mode,qs,doneSet){
+  const score=doneSet.size;
+  const pct=Math.round(score/qs.length*100);
+  const constructs={};
+  qs.forEach(q=>{
+    if(!constructs[q.construct])constructs[q.construct]={pass:0,fail:0};
+    if(doneSet.has(q.id))constructs[q.construct].pass++;
+    else constructs[q.construct].fail++;
+  });
+  const weakAreas=Object.entries(constructs).filter(([k,v])=>v.fail>0).map(([k])=>k);
+  const hdrBg=score===10?'#059669':score>=7?'#D97706':'#DC2626';
+  const hdrMsg=score===10?'Perfect score — section complete!':score>=7?'Good work — nearly there!':'Keep practising this section';
+  const qRows=qs.map(q=>{
+    const ok=doneSet.has(q.id);
+    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #2A2A2A">'
+      +'<span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;min-width:18px;border-radius:50%;background:'+(ok?'#059669':'#DC2626')+';color:#fff;font-size:10px">'+(ok?'\u2713':'\u2717')+'</span>'
+      +'<span style="font-size:13px;color:#EDE9DF;flex:1">'+q.title+'</span>'
+      +'<span style="font-size:11px;color:#666">'+q.construct+'</span>'
+      +'</div>';
+  }).join('');
+  const weakHtml=weakAreas.length
+    ?'<div style="margin-top:14px;padding:12px 14px;background:#2C2C2C;border-radius:8px;border-left:3px solid #D97706">'
+      +'<div style="font-size:12px;font-weight:600;color:#D97706;margin-bottom:6px">AREAS TO REVISE</div>'
+      +weakAreas.map(w=>'<div style="font-size:13px;color:#C8C4BA;padding:2px 0">'+w+'</div>').join('')
+      +'</div>':'';
+  const panel=document.createElement('div');
+  panel.id='section-breakdown';
+  panel.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:999;padding:16px';
+  const closeId='cbd'+Date.now();
+  panel.innerHTML='<div style="background:#363636;border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid #4A4A4A">'
+    +'<div style="background:'+hdrBg+';border-radius:16px 16px 0 0;padding:16px 20px">'
+    +'<div style="font-size:16px;font-weight:700;color:#fff">'+hdrMsg+'</div>'
+    +'<div style="font-size:28px;font-weight:700;color:#fff;margin-top:4px">'+score+'/10 <span style="font-size:16px;font-weight:400;opacity:.8">('+pct+'%)</span></div>'
+    +'</div>'
+    +'<div style="padding:16px 20px">'+qRows+weakHtml
+    +'<div style="display:flex;gap:8px;margin-top:16px">'
+    +'<button id="'+closeId+'" style="flex:1;background:#4A4A4A;color:#EDE9DF;border:none;border-radius:8px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Close</button>'
+    +'<a href="index.html" style="flex:1;background:#D97706;color:#1A1A1A;border-radius:8px;padding:11px;font-size:14px;font-weight:600;text-decoration:none;display:flex;align-items:center;justify-content:center">Back to menu</a>'
+    +'</div></div></div>';
+  document.body.appendChild(panel);
+  document.getElementById(closeId).addEventListener('click',()=>panel.remove());
+}
+
 switchMode('A');
+  if(!localStorage.getItem('ct_student_name')){window.location.href='login.html';}
+  const _sn=localStorage.getItem('ct_student_name');const _sb=document.getElementById('student-badge');if(_sb&&_sn)_sb.textContent=_sn;
+
 </script>
 </body>
 </html>

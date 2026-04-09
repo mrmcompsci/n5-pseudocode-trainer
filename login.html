@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>N5 Code Trainer — Login</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#2C2C2C;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:#363636;border:1px solid #4A4A4A;border-radius:16px;padding:40px 36px;width:100%;max-width:400px}
+h1{font-size:22px;font-weight:700;color:#EDE9DF;margin-bottom:6px}
+p{font-size:13px;color:#888;margin-bottom:28px;line-height:1.6}
+label{display:block;font-size:12px;font-weight:600;color:#888;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+input{width:100%;background:#1E1E1E;border:1.5px solid #4A4A4A;border-radius:8px;padding:12px 14px;font-size:15px;color:#EDE9DF;font-family:inherit;outline:none;transition:border-color .15s}
+input:focus{border-color:#D97706}
+input::placeholder{color:#555}
+button{width:100%;margin-top:16px;background:#D97706;color:#1A1A1A;border:none;border-radius:8px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s}
+button:hover{opacity:.9}
+button:disabled{opacity:.4;cursor:not-allowed}
+.existing{margin-top:20px;padding-top:20px;border-top:1px solid #4A4A4A}
+.existing p{margin-bottom:12px;font-size:13px;color:#888}
+.existing-name{background:#2C2C2C;border:1px solid #4A4A4A;border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.existing-name span{color:#EDE9DF;font-size:14px;font-weight:600}
+.existing-name button{width:auto;margin:0;padding:6px 14px;font-size:12px;background:#D97706}
+.clear-btn{background:none!important;color:#888!important;font-weight:400!important;font-size:12px!important;border:1px solid #4A4A4A!important;margin-top:10px!important}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>N5 Code Trainer</h1>
+  <p>Enter your name to track your progress across all six sections.</p>
+  <div id="login-form">
+    <label for="name">Your name</label>
+    <input type="text" id="name" placeholder="e.g. Sean Paul" autocomplete="off" maxlength="40">
+    <button id="go-btn" disabled onclick="startSession()">Start training →</button>
+  </div>
+  <div class="existing" id="existing-section" style="display:none">
+    <p>Continue as:</p>
+    <div class="existing-name">
+      <span id="existing-name-display"></span>
+      <button onclick="continueSession()">Continue →</button>
+    </div>
+    <button class="clear-btn" onclick="clearSession()">Not you? Start fresh</button>
+  </div>
+</div>
+<script>
+const nameInput=document.getElementById('name');
+const goBtn=document.getElementById('go-btn');
+const existingSection=document.getElementById('existing-section');
+
+nameInput.addEventListener('input',()=>{
+  goBtn.disabled=nameInput.value.trim().length<2;
+});
+nameInput.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&nameInput.value.trim().length>=2) startSession();
+});
+
+const saved=localStorage.getItem('ct_student_name');
+if(saved){
+  existingSection.style.display='block';
+  document.getElementById('existing-name-display').textContent=saved;
+}
+
+function startSession(){
+  const n=nameInput.value.trim();
+  if(n.length<2)return;
+  localStorage.setItem('ct_student_name',n);
+  window.location.href='index.html';
+}
+function continueSession(){
+  window.location.href='index.html';
+}
+function clearSession(){
+  localStorage.removeItem('ct_student_name');
+  ['p1a','p1b','p2a','p2b','p3a','p3b'].forEach(k=>localStorage.removeItem('ct_scores_'+k));
+  existingSection.style.display='none';
+  nameInput.value='';
+  goBtn.disabled=true;
+}
+</script>
+</body>
+</html>
